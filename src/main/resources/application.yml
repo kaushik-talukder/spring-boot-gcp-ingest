@@ -1,0 +1,18 @@
+server:
+  port: 8090
+spring:
+  cloud:
+    gcp:
+      project-id: dotted-howl-273101
+      credentials:
+        location: file:/Users/kaushik/CodeX/private-keys/dotted-howl-273101-a9307081af41.json
+  data:
+    cassandra:
+      local-datacenter: datacenter1
+      keyspace-name: dev
+      port: 9042
+      username: cassandra
+      password: cassandra
+      contact-points:
+        - localhost
+        - 127.0.0.1
