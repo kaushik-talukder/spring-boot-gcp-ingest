@@ -1,5 +1,6 @@
 package com.ezycoding.sbgi;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,9 +17,8 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
 @Configuration
+@Slf4j
 public class PubSubConfig {
-
-    private static final Log LOGGER = LogFactory.getLog(PubSubConfig.class);
 
     @Bean
     public MessageChannel pubsubInputChannel() {
@@ -41,7 +41,7 @@ public class PubSubConfig {
     @ServiceActivator(inputChannel = "pubsubInputChannel")
     public MessageHandler messageReceiver() {
         return message -> {
-            LOGGER.info("Message arrived! Payload: " + new String((byte[]) message.getPayload()));
+            log.info("Message arrived! Payload: " + new String((byte[]) message.getPayload()));
             BasicAcknowledgeablePubsubMessage originalMessage =
                     message.getHeaders().get(GcpPubSubHeaders.ORIGINAL_MESSAGE, BasicAcknowledgeablePubsubMessage.class);
             originalMessage.ack();
